@@ -31,9 +31,10 @@ public class Main implements Runnable {
 		GLFW.glfwInit();
 		
 		GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL11.GL_TRUE);
-		window = GLFW.glfwCreateWindow(width, height, "Oppe og Nikker", glfwGetPrimaryMonitor(), MemoryUtil.NULL);
+		window = GLFW.glfwCreateWindow(width, height, "Oppe og Nikker", MemoryUtil.NULL, MemoryUtil.NULL);
 	
-		GLFW.glfwSetWindowPos(window, 200, 200);
+		// TODO: Sentrere vinduet
+		GLFW.glfwSetWindowPos(window, 250, 75);
 		GLFW.glfwMakeContextCurrent(window);
 		GLFW.glfwShowWindow(window);
 		System.out.println(window);
@@ -49,19 +50,16 @@ public class Main implements Runnable {
 			update();
 			render();
 			
-			/*
 			if(GLFW.glfwWindowShouldClose(window) == true)
 			{
 				running = false;
-			{*/
-		}
-		
-		
+			}
+		}	
 	}
 	
 	private void update()
 	{
-		GLFW.glfwSwapBuffers(window);
+		GLFW.glfwPollEvents();
 	}
 	private void render()
 	{
