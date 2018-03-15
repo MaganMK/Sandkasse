@@ -1,12 +1,11 @@
 package Main;
 
-import java.nio.ByteBuffer;
 
 import org.lwjgl.glfw.GLFW;
-import static org.lwjgl.glfw.GLFW.*;
-import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
+
+import Input.Input;
 
 
 public class Main implements Runnable {
@@ -28,22 +27,21 @@ public class Main implements Runnable {
 	private void init()
 	{
 		running = true;
-		GLFW.glfwInit();
+		if (GLFW.glfwInit() == false) {System.out.println("Failed to init GLFW");}
 		
 		GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL11.GL_TRUE);
 		window = GLFW.glfwCreateWindow(width, height, "Oppe og Nikker", MemoryUtil.NULL, MemoryUtil.NULL);
-	
-		// TODO: Sentrere vinduet
-		GLFW.glfwSetWindowPos(window, 250, 75);
+		GLFW.glfwSetWindowPos(window, 250, 75); // TODO: Sentrere vinduet
+		
+		GLFW.glfwSetKeyCallback(window, new Input());
+		
 		GLFW.glfwMakeContextCurrent(window);
 		GLFW.glfwShowWindow(window);
-		System.out.println(window);
 	}
 	
 	public void run()
 	{
 		init();
-		
 		
 		while(running)
 		{
@@ -60,6 +58,10 @@ public class Main implements Runnable {
 	private void update()
 	{
 		GLFW.glfwPollEvents();
+		if(Input.keys[GLFW.GLFW_KEY_SPACE] == true)
+		{
+			System.out.println("Space");
+		}
 	}
 	private void render()
 	{
