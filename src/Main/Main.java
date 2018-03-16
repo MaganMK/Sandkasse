@@ -3,6 +3,8 @@ package Main;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GLCapabilities;
 import org.lwjgl.system.MemoryUtil;
 
 import Input.Input;
@@ -31,12 +33,12 @@ public class Main implements Runnable {
 		
 		GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL11.GL_TRUE);
 		window = GLFW.glfwCreateWindow(width, height, "Oppe og Nikker", MemoryUtil.NULL, MemoryUtil.NULL);
-		GLFW.glfwSetWindowPos(window, 250, 75); // TODO: Sentrere vinduet
-		
+		GLFW.glfwSetWindowPos(window, 250, 75); // TODO: Sentrere vinduet		
 		GLFW.glfwSetKeyCallback(window, new Input());
-		
 		GLFW.glfwMakeContextCurrent(window);
+		GL.createCapabilities();
 		GLFW.glfwShowWindow(window);
+		GL11.glClearColor(0.3f, 1.0f, 0.5f, 1.0f);
 	}
 	
 	public void run()
@@ -65,6 +67,7 @@ public class Main implements Runnable {
 	}
 	private void render()
 	{
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		GLFW.glfwSwapBuffers(window);
 	}
 
