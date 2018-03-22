@@ -1,13 +1,13 @@
-package Main;
+package setup;
 
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLCapabilities;
 import org.lwjgl.system.MemoryUtil;
 
-import Input.Input;
+import input.Input;
+import graphics.Texture;
 
 
 public class Main implements Runnable {
@@ -17,7 +17,8 @@ public class Main implements Runnable {
 	private boolean running = false;
 	
 	private Thread thread;
-	
+	private Texture floor;
+	private Texture floor2;
 	private long window;
 	
 	public void start()
@@ -37,8 +38,12 @@ public class Main implements Runnable {
 		GLFW.glfwSetKeyCallback(window, new Input());
 		GLFW.glfwMakeContextCurrent(window);
 		GL.createCapabilities();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GLFW.glfwShowWindow(window);
 		GL11.glClearColor(0.3f, 1.0f, 0.5f, 1.0f);
+		floor = new Texture("Images/blue.jpg");
+		floor2 = new Texture("Images/floor.png");
+
 	}
 	
 	public void run()
@@ -68,6 +73,8 @@ public class Main implements Runnable {
 	private void render()
 	{
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		floor.draw(-1f, -0.5f);
+		floor.draw(-1f + 0.065f + 0.01f, -0.5f);
 		GLFW.glfwSwapBuffers(window);
 	}
 
